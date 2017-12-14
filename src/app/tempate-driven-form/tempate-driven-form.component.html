@@ -1,0 +1,67 @@
+<div class="container">
+	<form #f="ngForm" (ngSubmit)="submit(f)">
+		<div class="form-group">
+			<input type="text" name="firstname" 
+				   class="form-control" placeholder="firstname" 
+				   ngModel #firstname="ngModel" (change)="accessName(firstname)"
+				   minlength="3"
+				   maxlength="10" 
+				   required="" 
+			>
+			<div *ngIf="firstname.touched && ! firstname.valid">
+				<div *ngIf="firstname.errors.required">Firstname is required</div>
+				<div *ngIf="firstname.errors.minlength">
+					Firstname cannot have a min length of {{ firstname.errors.minlength.requiredLength }}
+				</div>
+				<div *ngIf="firstname.errors.maxlength">
+					Firstname cannot have a max length of {{ firstname.errors.maxlength.requiredLength }}
+				</div>
+			</div>
+		</div>
+		
+		<div ngModelGroup="person">
+			<div class="form-group">
+				<input type="text" name="lastname" 
+					   class="form-control" placeholder="lastname" 
+					   ngModel #lastname="ngModel" (change)="accessName(lastname)"
+				>
+			</div>
+
+			<div class="form-group">
+				<input type="text" name="middlename" 
+					   class="form-control" placeholder="middlename" 
+					   ngModel #middlename="ngModel" (change)="accessName(middlename)"
+				>
+			</div>			
+		</div>
+
+		<div class="form-group">
+			<select name="select" ngModel class="form-control">
+				<option *ngFor="let myOption of myOptions" [value]="myOption.id">
+					{{ myOption.name }}
+				</option>
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label for="checkbox">
+				<input type="checkbox" ngModel name="like" class="form-control"> Like this article ?
+			</label>
+		</div>
+
+		<div ngModelGroup="clap">
+			<label>
+				<input type="radio" ngModel name="no_of_claps" value="2"> 2 claps?
+			</label>
+			<label>
+				<input type="radio" ngModel name="no_of_claps" value="3"> 3 claps?
+			</label>
+		</div>
+		
+
+		<button class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+	</form>
+
+
+
+</div>
